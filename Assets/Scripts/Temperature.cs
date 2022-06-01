@@ -33,8 +33,9 @@ public class Temperature : MonoBehaviour
         // EnivornmentCalculator();
         // ConvertState();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+        Debug.Log("Touching");
         float tempOther = other.GetComponent<Temperature>().GetTemp(); // Get the temperature of the object.
 
         // Current Behavior: If temperature difference is greater than 25, heat twice as fast.
