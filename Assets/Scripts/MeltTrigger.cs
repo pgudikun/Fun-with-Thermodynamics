@@ -9,8 +9,7 @@ public class MeltTrigger : MonoBehaviour
     public GameObject myCube; // Can be assigned without Start() but requires inspector
     public Vector3 sizeChange; // Modify this in the Inspector
     // [HideInInspector]
-    public MatterState thisState;
-
+    public ObjBaseTemp baseTemp;
     #endregion
 
     #region Private Vars
@@ -23,19 +22,15 @@ public class MeltTrigger : MonoBehaviour
     private void Start()
     {
         myCube = this.gameObject; // Assigns the gameobject
-        thisState = GetComponent<MatterState>();
 
         // Adding the temperature condition requires the playerTemp to be obtained here as a getComponent.
         // E.g. float playerTemp = GameObject.FindGameObjectWithTag("Player").GetComponent<Temperature>().GetTemp;
     }
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
-        // Behavior: Currently checks if the current state is solid, then melts.
-        if (collision.tag == "Player" && thisState.State == "SOLID")
+        // Behavior: Regardless of tag, collision into a hotter object will melt the current object.
+        if ((collision.tag == "Player" || collision.tag == "CanHasTemp") && baseTemp.GetBaseTemp() < collision.GetComponent<Temperature>().GetTemp())
         {
-            // Add the temperature condition here. (e.g. if collision.GetComponent<Temperature>().GetTemp() > this.GetComponent<Temperature>().GetTemp())
-
-
             // Subtracts the scale Vector3 when the object is touched.
             myCube.transform.localScale = myCube.transform.localScale - sizeChange;
 

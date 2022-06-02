@@ -23,7 +23,7 @@ public class Elevator : MonoBehaviour
         int count = 0;
         foreach (GameObject power in powerSource)
         {
-            if (power.GetComponent<Temperature>().GetTemp() > 500)
+            if (power.GetComponent<Temperature>().GetTemp() > 300)
             {
                 count += 1;
             }

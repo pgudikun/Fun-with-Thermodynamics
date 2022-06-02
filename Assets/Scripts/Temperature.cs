@@ -44,7 +44,7 @@ public class Temperature : MonoBehaviour
         if (revertTemp == true) // Prevents constantly setting isCooling to false
             revertTemp = false;
 
-        if (other.tag == "CanHasTemp" && !baseTemp.IsFixedTemp())
+        if ((other.tag == "CanHasTemp" || other.tag == "Player") && !baseTemp.IsFixedTemp())
         {
             Debug.Log("Touching");
             float tempOther = other.GetComponent<Temperature>().GetTemp(); // Get the temperature of the object.
