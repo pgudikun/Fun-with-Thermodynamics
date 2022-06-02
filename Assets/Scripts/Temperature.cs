@@ -13,10 +13,12 @@ public class Temperature : MonoBehaviour
 
     #region Public Vars
 
-    public float ObjTemp; // The temperature of this object.
+    public float objTemp; // The temperature of this object.
 
-    public MatterState ObjState;
+    public ObjBaseTemp baseTemp; // A base temperature ScriptableObject.
+                                 // public MatterState objState;
 
+    public bool revertTemp;
     #endregion
 
     #region MonoBehaviorCallbacks
@@ -25,44 +27,39 @@ public class Temperature : MonoBehaviour
     {
         // ObjTemp = 50.0f; Left Commented as this can be set in the inspector
         // ObjState = GetComponent<MatterState>(); Left commmented out as this can be manually hooked to inspector.
+        objTemp = baseTemp.GetBaseTemp();
+        revertTemp = true; // Objects always attempt to return to the base temperature.
     }
-    private void Update()
+    private void FixedUpdate()
     {
         // Can be used to call functions (e.g. Cooling)
         // Also should be where calls occur to Enviornment
         // EnivornmentCalculator();
-        // ConvertState();
+
+        if (revertTemp)
+            RevertToBase();
     }
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("Touching");
-        float tempOther = other.GetComponent<Temperature>().GetTemp(); // Get the temperature of the object.
+        if (revertTemp == true) // Prevents constantly setting isCooling to false
+            revertTemp = false;
 
-        // Current Behavior: If temperature difference is greater than 25, heat twice as fast.
-        if (other.tag == "CanHasTemp" && tempOther > ObjTemp)
+        if (other.tag == "CanHasTemp" && !baseTemp.IsFixedTemp())
         {
-            if (Mathf.Abs(tempOther - ObjTemp) > 25f) // Modify these based on functions of decreasing temperature.   
-            {
-                Heating(2.0f);
-            }
-            else
-            {
-                Heating(1.0f);
-            }
-        }
+            Debug.Log("Touching");
+            float tempOther = other.GetComponent<Temperature>().GetTemp(); // Get the temperature of the object.
 
-        if (other.tag == "CanHasTemp" && tempOther < ObjTemp)
-        {
-            // Current Behavior: If temperature difference is greater than 25, cool twice as fast.
-            if (Mathf.Abs(tempOther - ObjTemp) > 25f) // Modify these based on functions of decreasing temperature.   
-            {
-                Cooling(2.0f);
-            }
-            else
-            {
-                Cooling(1.0f);
-            } 
+            if (tempOther > objTemp)
+                Heating();
+
+            if (tempOther < objTemp)
+                Cooling();
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        revertTemp = true;
     }
 
     #endregion
@@ -70,83 +67,55 @@ public class Temperature : MonoBehaviour
     #region Public Functions
     public float GetTemp()
     {
-        return ObjTemp;
+        return objTemp;
     }
     #endregion
 
     #region Private Functions
-    private void Cooling(float CoolingRate)
+    private void RevertToBase()
     {
-        // Called when object is cooling. Decreases temperature.
-        ObjTemp -= CoolingRate;
-    }
-    private void Heating(float HeatingRate)
-    {
-        // Called when object is heating up. Increases Temperature.
-        ObjTemp += HeatingRate;
-    }
-
-    private void ConvertState()
-    {
-        // Changes the state of the object if a threshold is breached.
-
-        // To remove this error, delete the line below. Replace with #warning instead.
-        #warning Function assumes that temperature is the base threshold before conversion to next state.
-
-        if (ObjTemp >= ObjState.TempGas) // Hotter than gas temp
-        {
-            ObjState.ConvertToGas();
-        }
-        else if (ObjTemp < ObjState.TempGas && ObjTemp > ObjState.TempLiquid) // 
-        {
-            ObjState.ConvertToLiquid();
-        }
+        if (baseTemp.GetBaseTemp() < objTemp)
+            Cooling();
+        else if (baseTemp.GetBaseTemp() > objTemp)
+            Heating();
         else
-        {
-            ObjState.ConvertToSolid();
-        }
+            revertTemp = false;
+
     }
+
     private void EnvironmentCalculator()
     {
         // This function handles temperature calculations with environmental conditions (e.g. hot room).
         // Differs from Collisions as there is no trigger with an Environment.
-        
+
         // This may be replaced/obsoleted with invisible gameobjects with triggers for "Hot/Cold" areas instead.
         GameObject Environment = GameObject.FindGameObjectWithTag("Environment");
         if (Environment != null)
         {
             float tempEnviron = Environment.GetComponent<Temperature>().GetTemp();
-            if (tempEnviron > ObjTemp)
-            {
-                if (Mathf.Abs(tempEnviron - ObjTemp) > 25f) // Modify these based on functions of decreasing temperature.   
-                {
-                    Heating(2.0f);
-                }
-                else
-                {
-                    Heating(1.0f);
-                }
-            }
+            if (tempEnviron > objTemp)
+                Heating();
 
-            if (tempEnviron < ObjTemp)
-            {
-                // Current Behavior: If temperature difference is greater than 25, cool twice as fast.
-                if (Mathf.Abs(tempEnviron - ObjTemp) > 25f) // Modify these based on functions of decreasing temperature.   
-                {
-                    Cooling(2.0f);
-                }
-                else
-                {
-                    Cooling(1.0f);
-                }
-            }
-
+            if (tempEnviron < objTemp)
+                Cooling();
         }
         else
         {
             Debug.Log("No Environment, or cannot find environment.");
         }
     }
+    private void Cooling()
+    {
+        objTemp -= 1f;
+    }
 
+    private void Heating()
+    {
+        objTemp += 1f;
+    }
+
+    #endregion
+
+    #region Coroutines
     #endregion
 }
