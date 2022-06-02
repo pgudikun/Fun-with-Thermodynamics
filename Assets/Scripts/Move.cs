@@ -20,7 +20,7 @@ public class Move : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        
+
     }
 
     private void FixedUpdate()

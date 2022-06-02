@@ -21,13 +21,14 @@ public class Elevator : MonoBehaviour
     void Update()
     {
         int count = 0;
-        foreach(GameObject power in powerSource){
-            if(power.GetComponent<Temperature>().GetTemp() > 50)
+        foreach (GameObject power in powerSource)
+        {
+            if (power.GetComponent<Temperature>().GetTemp() > 300)
             {
                 count += 1;
             }
         }
-        if(count == powerSource.Length)
+        if (count == powerSource.Length)
         {
             turnedOn = true;
         }
@@ -43,7 +44,7 @@ public class Elevator : MonoBehaviour
         {
             moveDirection = Vector3.down;
         }
-        else if(transform.position.y <= 9)
+        else if (transform.position.y <= 9)
         {
             moveDirection = Vector3.up;
         }
