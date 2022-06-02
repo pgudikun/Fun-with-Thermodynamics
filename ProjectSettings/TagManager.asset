@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - CanHasTemp
+  - Metal
   layers:
   - Default
   - TransparentFX

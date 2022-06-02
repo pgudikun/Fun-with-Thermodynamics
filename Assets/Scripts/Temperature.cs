@@ -14,6 +14,7 @@ public class Temperature : MonoBehaviour
     #region Public Vars
 
     public float objTemp; // The temperature of this object.
+    public GameObject changingTempObj;  // the object whose temperature is being changed
 
     public ObjBaseTemp baseTemp; // A base temperature ScriptableObject.
                                  // public MatterState objState;
@@ -37,7 +38,9 @@ public class Temperature : MonoBehaviour
         // EnivornmentCalculator();
 
         if (revertTemp)
+        {
             RevertToBase();
+        }   
     }
     private void OnTriggerStay(Collider other)
     {
@@ -106,11 +109,17 @@ public class Temperature : MonoBehaviour
     }
     private void Cooling()
     {
+        changingTempObj = this.gameObject;
         objTemp -= 1f;
     }
 
     private void Heating()
     {
+        changingTempObj = this.gameObject;
+        if (changingTempObj.tag == "Player")
+        {
+            Debug.Log("Red Hot Metal");
+        }
         objTemp += 1f;
     }
 
