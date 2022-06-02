@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a50eede01308a4f9fc6962bbe4dcc6, type: 3}
   m_Name: ICE
   m_EditorClassIdentifier: 
-  baseTemperature: 0
+  baseTemperature: 270
   FixedTemp: 0

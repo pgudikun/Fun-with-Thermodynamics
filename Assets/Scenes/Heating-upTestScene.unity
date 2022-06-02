@@ -602,15 +602,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9146183196918719268, guid: 7d2aa8b9f68ac104b928874f74c342ba, type: 3}
       propertyPath: sizeChange.x
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9146183196918719268, guid: 7d2aa8b9f68ac104b928874f74c342ba, type: 3}
       propertyPath: sizeChange.y
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9146183196918719268, guid: 7d2aa8b9f68ac104b928874f74c342ba, type: 3}
       propertyPath: sizeChange.z
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9146183196918719269, guid: 7d2aa8b9f68ac104b928874f74c342ba, type: 3}
       propertyPath: m_Name

@@ -49,7 +49,7 @@ public class Temperature : MonoBehaviour
 
         if ((other.tag == "CanHasTemp" || other.tag == "Player") && !baseTemp.IsFixedTemp())
         {
-            Debug.Log("Touching");
+            //Debug.Log("Touching");
             float tempOther = other.GetComponent<Temperature>().GetTemp(); // Get the temperature of the object.
 
             if (tempOther > objTemp)
@@ -110,6 +110,19 @@ public class Temperature : MonoBehaviour
     private void Cooling()
     {
         changingTempObj = this.gameObject;
+        if (changingTempObj.tag == "Player")
+        {
+            //Debug.Log("Red Hot Metal");
+            float tempDifference = objTemp - baseTemp.GetBaseTemp();
+            tempDifference /= 1000;
+            //Debug.Log(tempDifference);
+            tempDifference = Mathf.Min(tempDifference, 1f);
+            //Debug.Log(tempDifference);
+
+            Material redGlow = changingTempObj.GetComponent<Renderer>().material;
+            redGlow.EnableKeyword("_EMISSION");
+            redGlow.SetColor("_EmissionColor", new Color(2.55f, 0f, 0f, 1.0f) * tempDifference);
+        }
         objTemp -= 1f;
     }
 
@@ -118,7 +131,16 @@ public class Temperature : MonoBehaviour
         changingTempObj = this.gameObject;
         if (changingTempObj.tag == "Player")
         {
-            Debug.Log("Red Hot Metal");
+            //Debug.Log("Red Hot Metal");
+            float tempDifference = objTemp - baseTemp.GetBaseTemp();
+            tempDifference /= 1000;
+            //Debug.Log(tempDifference);
+            tempDifference = Mathf.Min(tempDifference, 1f);
+            //Debug.Log(tempDifference);
+
+            Material redGlow = changingTempObj.GetComponent<Renderer>().material;
+            redGlow.EnableKeyword("_EMISSION");
+            redGlow.SetColor("_EmissionColor", new Color(2.55f, 0f, 0f, 1.0f) * tempDifference);
         }
         objTemp += 1f;
     }
