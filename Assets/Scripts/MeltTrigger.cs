@@ -29,6 +29,11 @@ public class MeltTrigger : MonoBehaviour
         mySteam.SetActive(false);
         steamParticles = mySteam.GetComponent<ParticleSystem>();
 
+        var steamShape = steamParticles.shape;
+        var steamMain = steamParticles.main;
+        steamShape.radius = 4.0f;
+        steamMain.loop = true;
+
         // Adding the temperature condition requires the playerTemp to be obtained here as a getComponent.
         // E.g. float playerTemp = GameObject.FindGameObjectWithTag("Player").GetComponent<Temperature>().GetTemp;
     }
