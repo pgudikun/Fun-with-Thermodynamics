@@ -48,6 +48,17 @@ public class MeltTrigger : MonoBehaviour
             // Since you cannot compare vectors using ==, you must calculate the distance instead.
             float tempDist = Vector3.Distance(myCube.transform.localScale, Vector3.zero);
 
+            Vector3 temp = myCube.transform.localScale;
+
+            if (temp.x <= 0)
+                temp.x = 0.1f;
+            if (temp.y <= 0)
+                temp.y = 0.1f;
+            if (temp.z <= 0)
+                temp.z = 0.1f;
+
+            myCube.transform.localScale = temp;
+
             // Destroys the object if it becomes 0.5f size or smaller.
             if (tempDist <= 0.5f)
             {
