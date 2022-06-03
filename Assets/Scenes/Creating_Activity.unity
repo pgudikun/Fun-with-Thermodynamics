@@ -580,15 +580,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 49a0e923d39ec3c4c8bb97699e2f2903, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.921953
+      value: 63.4
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 49a0e923d39ec3c4c8bb97699e2f2903, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.896802
+      value: 12.42
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 49a0e923d39ec3c4c8bb97699e2f2903, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.015055
+      value: 51.62
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 49a0e923d39ec3c4c8bb97699e2f2903, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1186,6 +1186,18 @@ PrefabInstance:
     - target: {fileID: 5804656793854198466, guid: fb0682e349384a04ea680bc5883d667b, type: 3}
       propertyPath: m_Name
       value: IceCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804656793854198467, guid: fb0682e349384a04ea680bc5883d667b, type: 3}
+      propertyPath: sizeChange.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804656793854198467, guid: fb0682e349384a04ea680bc5883d667b, type: 3}
+      propertyPath: sizeChange.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804656793854198467, guid: fb0682e349384a04ea680bc5883d667b, type: 3}
+      propertyPath: sizeChange.z
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5804656793854198472, guid: fb0682e349384a04ea680bc5883d667b, type: 3}
       propertyPath: m_RootOrder
