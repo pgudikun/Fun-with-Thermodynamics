@@ -42,8 +42,7 @@ public class MeltTrigger : MonoBehaviour
             var steamMain = steamParticles.main;
 
             // Subtracts the scale Vector3 when the object is touched.
-            //myCube.transform.localScale = myCube.transform.localScale - sizeChange;
-            myCube.transform.localScale -= sizeChange;
+            myCube.transform.localScale = myCube.transform.localScale - sizeChange;
             steamShape.radius = steamShape.radius - (sizeChange.x / 2);
 
             // Since you cannot compare vectors using ==, you must calculate the distance instead.
